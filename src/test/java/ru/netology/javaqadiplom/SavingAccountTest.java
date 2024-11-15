@@ -172,7 +172,7 @@ public class SavingAccountTest {
     @Test
     public void ifInitialBalanceGreaterThanMaxBalance () {
         SavingAccount account;
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(1200, 1_000, 10_000, 15));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(12_000, 1_000, 10_000, 15));
     }
 
 }
