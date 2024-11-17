@@ -45,17 +45,17 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldPayWithinLimit() {
-        CreditAccount account = new CreditAccount(0, 5000, 15);
+    public void shouldPayWhenBalanceIsPositive() {
+        CreditAccount account = new CreditAccount(1000, 5000, 15);
 
         boolean result = account.pay(3000);
 
         Assertions.assertTrue(result);
-        Assertions.assertEquals(-3000, account.getBalance());
+        Assertions.assertEquals(-2000, account.getBalance());
     }
 
     @Test
-    public void shouldNotPayExceedingLimit() {
+    public void shouldNotPayExceedingLimitWithZeroBalance() {
         CreditAccount account = new CreditAccount(0, 5000, 15);
 
         boolean result = account.pay(6000);
@@ -65,13 +65,12 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldNotPayAtLimit() {
-        CreditAccount account = new CreditAccount(0, 5000, 15);
+    public void shouldPayAtLimitWithPositiveBalance() {
+        CreditAccount account = new CreditAccount(1000, 5000, 15);
 
-        account.pay(5000);
-        boolean result = account.pay(1);
+        boolean result = account.pay(6000);
 
-        Assertions.assertFalse(result);
+        Assertions.assertTrue(result);
         Assertions.assertEquals(-5000, account.getBalance());
     }
 
