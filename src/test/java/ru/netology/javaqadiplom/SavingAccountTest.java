@@ -74,7 +74,7 @@ public class SavingAccountTest {
 
     @Test
     public void shouldIfReteLessThan0() {
-        SavingAccount account;
+
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(2_000, 1_000, 10_000, -5));
     }
 
@@ -122,6 +122,22 @@ public class SavingAccountTest {
     }
 
     @Test
+    public void balanceNotChangedIfMinAndInitialBalanceEqualsBeforePay() {
+        SavingAccount account = new SavingAccount(1_000, 1_000, 10_000, 5);
+
+        account.pay(900);
+
+        Assertions.assertEquals(1_000, account.getBalance());
+    }
+
+    @Test
+    public void shouldFalseIfMinAndInitialBalanceEqualsBeforePay() {
+        SavingAccount account = new SavingAccount(1_000, 1_000, 10_000, 5);
+
+        Assertions.assertFalse(account.pay(900));
+    }
+
+    @Test
     public void shouldBeFalsePayLessThan0() {
         SavingAccount account = new SavingAccount(7_000, 1_000, 10_000, 5);
 
@@ -146,21 +162,29 @@ public class SavingAccountTest {
     }
 
     @Test
-    public void ifInitialBalanceLessThan0 () {
-        SavingAccount account;
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(-200, 0, 10_000, 15));
+    public void fInitialBalance0() {
+        SavingAccount account = new SavingAccount(0, 0, 10_000, 15);
+
+        Assertions.assertEquals(0, account.yearChange());
+
     }
 
     @Test
-    public void shouldIfReteLessThan0InYearChange() {
-        SavingAccount account;
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(2_000, 1_000, 10_000, -5));
+    public void ifInitialBalanceLessThan0 () {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(-200, 0, 10_000, 15));
     }
 
     @Test
     public void ifMinBalanceLessThan0 () {
         SavingAccount account;
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(200, -1_000, 10_000, 15));
+    }
+
+    @Test
+    public void ifMaxBalanceLessThan0 () {
+        SavingAccount account;
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(200, 1_000, -10_000, 15));
     }
 
     @Test
