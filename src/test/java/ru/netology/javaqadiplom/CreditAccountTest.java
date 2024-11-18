@@ -45,17 +45,37 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldPayWithinLimit() {
+    public void shouldPayAtLimitWithZeroBalance() {
         CreditAccount account = new CreditAccount(0, 5000, 15);
 
-        boolean result = account.pay(3000);
+        boolean result = account.pay(5000);
+
+        Assertions.assertTrue(result);
+        Assertions.assertEquals(-5000, account.getBalance());
+    }
+
+    @Test
+    public void shouldPayWithinLimitWithPositiveBalance() {
+        CreditAccount account = new CreditAccount(1000, 5000, 15);
+
+        boolean result = account.pay(1000);
+
+        Assertions.assertTrue(result);
+        Assertions.assertEquals(2000, account.getBalance());
+    }
+
+    @Test
+    public void shouldPayWithinLimitWithNegativeBalance() {
+        CreditAccount account = new CreditAccount(-2000, 5000, 15);
+
+        boolean result = account.pay(1000);
 
         Assertions.assertTrue(result);
         Assertions.assertEquals(-3000, account.getBalance());
     }
 
     @Test
-    public void shouldNotPayExceedingLimit() {
+    public void shouldNotPayExceedingLimitWithZeroBalance() {
         CreditAccount account = new CreditAccount(0, 5000, 15);
 
         boolean result = account.pay(6000);
@@ -64,15 +84,25 @@ public class CreditAccountTest {
         Assertions.assertEquals(0, account.getBalance());
     }
 
-    @Test
-    public void shouldNotPayAtLimit() {
-        CreditAccount account = new CreditAccount(0, 5000, 15);
 
-        account.pay(5000);
-        boolean result = account.pay(1);
+    @Test
+    public void shouldNotPayExceedingLimitWithNegativeBalance() {
+        CreditAccount account = new CreditAccount(-4000, 5000, 15);
+
+        boolean result = account.pay(2000);
 
         Assertions.assertFalse(result);
-        Assertions.assertEquals(-5000, account.getBalance());
+        Assertions.assertEquals(-4000, account.getBalance());
+    }
+
+    @Test
+    public void shouldNotPayExceedingLimitWithPositiveBalance() {
+        CreditAccount account = new CreditAccount(4000, 5000, 15);
+
+        boolean result = account.pay(2000);
+
+        Assertions.assertFalse(result);
+        Assertions.assertEquals(-4000, account.getBalance());
     }
 
     @Test
@@ -87,25 +117,6 @@ public class CreditAccountTest {
         Assertions.assertEquals(-800, account.getBalance());
     }
 
-    @Test
-    public void shouldPayWhenBalanceIsNegative() {
-        CreditAccount account = new CreditAccount(-2000, 5000, 15);
-
-        boolean result = account.pay(1000);
-
-        Assertions.assertTrue(result);
-        Assertions.assertEquals(-3000, account.getBalance());
-    }
-
-    @Test
-    public void shouldNotPayWhenExceedingLimitWithNegativeBalance() {
-        CreditAccount account = new CreditAccount(-4000, 5000, 15);
-
-        boolean result = account.pay(2000);
-
-        Assertions.assertFalse(result);
-        Assertions.assertEquals(-4000, account.getBalance());
-    }
 
     // Тесты для add
     @Test
@@ -138,7 +149,32 @@ public class CreditAccountTest {
         Assertions.assertEquals(0, account.getBalance());
     }
 
+    @Test
+    public void shouldAddThreeAmounts() {
+        CreditAccount account = new CreditAccount(1000, 5000, 15); // Начальный баланс 1000
+
+        boolean firstAdd = account.add(500);
+        boolean secondAdd = account.add(700);
+        boolean thirdAdd = account.add(300);
+
+        Assertions.assertTrue(firstAdd);
+        Assertions.assertTrue(secondAdd);
+        Assertions.assertTrue(thirdAdd);
+
+        Assertions.assertEquals(300, account.getBalance());
+    }
+
     // Тесты для yearChange
+
+    @Test
+    public void shouldReturnZeroForPositiveBalance() {
+        CreditAccount account = new CreditAccount(200, 5000, 15);
+
+        int result = account.yearChange();
+
+        Assertions.assertEquals(0, result);
+    }
+
     @Test
     public void shouldReturnNegativeYearChange() {
         CreditAccount account = new CreditAccount(-5000, 5000, 20);
@@ -149,7 +185,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldReturnZeroYearChange() {
+    public void shouldReturnZeroForZeroBalance() {
         CreditAccount account = new CreditAccount(0, 5000, 15);
 
         int yearChange = account.yearChange();
