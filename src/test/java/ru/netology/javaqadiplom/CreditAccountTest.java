@@ -55,6 +55,16 @@ public class CreditAccountTest {
     }
 
     @Test
+    public void shouldPayWithinLimitWithPositiveBalance() {
+        CreditAccount account = new CreditAccount(1000, 5000, 15);
+
+        boolean result = account.pay(1000);
+
+        Assertions.assertTrue(result);
+        Assertions.assertEquals(2000, account.getBalance());
+    }
+
+    @Test
     public void shouldPayWithinLimitWithNegativeBalance() {
         CreditAccount account = new CreditAccount(-2000, 5000, 15);
 
