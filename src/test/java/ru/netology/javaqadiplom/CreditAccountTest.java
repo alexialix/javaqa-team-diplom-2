@@ -149,6 +149,21 @@ public class CreditAccountTest {
         Assertions.assertEquals(0, account.getBalance());
     }
 
+    @Test
+    public void shouldAddThreeAmounts() {
+        CreditAccount account = new CreditAccount(1000, 5000, 15); // Начальный баланс 1000
+
+        boolean firstAdd = account.add(500);
+        boolean secondAdd = account.add(700);
+        boolean thirdAdd = account.add(300);
+
+        Assertions.assertTrue(firstAdd);
+        Assertions.assertTrue(secondAdd);
+        Assertions.assertTrue(thirdAdd);
+
+        Assertions.assertEquals(300, account.getBalance());
+    }
+
     // Тесты для yearChange
 
     @Test
