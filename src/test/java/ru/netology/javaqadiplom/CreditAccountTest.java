@@ -45,7 +45,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldPayWhenBalanceIsPositive() {
+    public void shouldPaWithinLimitWithPositiveBalance() {
         CreditAccount account = new CreditAccount(1000, 5000, 15);
 
         boolean result = account.pay(3000);
@@ -87,7 +87,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldPayWhenBalanceIsNegative() {
+    public void shouldPayWithinLimitWithNegativeBalance() {
         CreditAccount account = new CreditAccount(-2000, 5000, 15);
 
         boolean result = account.pay(1000);
@@ -97,7 +97,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldNotPayWhenExceedingLimitWithNegativeBalance() {
+    public void shouldNotPayExceedingLimitWithNegativeBalance() {
         CreditAccount account = new CreditAccount(-4000, 5000, 15);
 
         boolean result = account.pay(2000);
