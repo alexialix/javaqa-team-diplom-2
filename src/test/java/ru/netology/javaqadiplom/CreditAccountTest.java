@@ -120,6 +120,16 @@ public class CreditAccountTest {
 
     // Тесты для add
     @Test
+    public void shouldAddToPositiveBalance() {
+        CreditAccount account = new CreditAccount(100, 500, 15);
+
+        boolean result = account.add(200);
+
+        Assertions.assertTrue(result);
+        Assertions.assertEquals(300, account.getBalance());
+    }
+
+    @Test
     public void shouldAddToZeroBalance() {
         CreditAccount account = new CreditAccount(0, 5000, 15);
 
