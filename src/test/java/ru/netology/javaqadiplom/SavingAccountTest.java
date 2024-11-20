@@ -170,33 +170,72 @@ public class SavingAccountTest {
     }
 
     @Test
-    public void ifInitialBalanceLessThan0 () {
+    public void ifInitialBalanceLessThan0() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(-200, 0, 10_000, 15));
     }
 
     @Test
-    public void ifMinBalanceLessThan0 () {
+    public void ifMinBalanceLessThan0() {
         SavingAccount account;
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(200, -1_000, 10_000, 15));
     }
 
     @Test
-    public void ifMaxBalanceLessThan0 () {
+    public void ifMaxBalanceLessThan0() {
         SavingAccount account;
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(200, 1_000, -10_000, 15));
     }
 
     @Test
-    public void ifInitialBalanceLessThanMinBalance () {
+    public void ifInitialBalanceLessThanMinBalance() {
         SavingAccount account;
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(200, 1_000, 10_000, 15));
     }
 
     @Test
-    public void ifInitialBalanceGreaterThanMaxBalance () {
+    public void ifInitialBalanceGreaterThanMaxBalance() {
         SavingAccount account;
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(12_000, 1_000, 10_000, 15));
     }
 
+    @Test
+    public void shouldBeFalseAddBalance0() {
+        SavingAccount account = new SavingAccount(2_000, 1_000, 10_000, 5);
+
+        Assertions.assertFalse(account.add(0));
+    }
+
+    @Test
+    public void balanceNotChangedIfAdd0() {
+        SavingAccount account = new SavingAccount(2_000, 1_000, 10_000, 5);
+
+        account.add(0);
+
+        Assertions.assertEquals(2_000, account.getBalance());
+    }
+
+    @Test
+    public void shouldBeFalseIfPay0() {
+        SavingAccount account = new SavingAccount(7_000, 1_000, 10_000, 5);
+
+        Assertions.assertFalse(account.pay(0));
+    }
+
+    @Test
+    public void balanceNotChangedIfPay0() {
+        SavingAccount account = new SavingAccount(2_000, 1_000, 10_000, 5);
+
+        account.pay(0);
+
+        Assertions.assertEquals(2_000, account.getBalance());
+    }
+
+    @Test
+    public void yearChangeIfRate0() {
+        SavingAccount account = new SavingAccount(200, 0, 10_000, 0);
+
+        Assertions.assertEquals(0, account.yearChange());
+
+    }
 }
