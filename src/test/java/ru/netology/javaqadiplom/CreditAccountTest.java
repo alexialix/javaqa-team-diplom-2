@@ -97,12 +97,12 @@ public class CreditAccountTest {
 
     @Test
     public void shouldNotPayExceedingLimitWithPositiveBalance() {
-        CreditAccount account = new CreditAccount(4000, 5000, 15);
+        CreditAccount account = new CreditAccount(1000, 5000, 15);
 
-        boolean result = account.pay(2000);
+        boolean result = account.pay(7000);
 
         Assertions.assertFalse(result);
-        Assertions.assertEquals(-4000, account.getBalance());
+        Assertions.assertEquals(1000, account.getBalance());
     }
 
     @Test
@@ -161,7 +161,7 @@ public class CreditAccountTest {
 
     @Test
     public void shouldAddThreeAmounts() {
-        CreditAccount account = new CreditAccount(1000, 5000, 15); // Начальный баланс 1000
+        CreditAccount account = new CreditAccount(1000, 5000, 15);
 
         boolean firstAdd = account.add(500);
         boolean secondAdd = account.add(700);
@@ -171,7 +171,7 @@ public class CreditAccountTest {
         Assertions.assertTrue(secondAdd);
         Assertions.assertTrue(thirdAdd);
 
-        Assertions.assertEquals(300, account.getBalance());
+        Assertions.assertEquals(2500, account.getBalance());
     }
 
     // Тесты для yearChange
@@ -205,7 +205,7 @@ public class CreditAccountTest {
 
     @Test
     public void shouldHandleZeroRateInYearChange() {
-        CreditAccount account = new CreditAccount(-2000, 5000, 0);
+        CreditAccount account = new CreditAccount(0, 5000, 0);
 
         int yearChange = account.yearChange();
 
