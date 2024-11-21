@@ -16,27 +16,32 @@ public class CreditAccountTest {
     }
 
     @Test
+    public void shouldHandleWithZeroRate() {
+        CreditAccount account = new CreditAccount(0, 5000, 0);
+        Assertions.assertEquals(0, account.getBalance());
+        Assertions.assertEquals(5000, account.getCreditLimit());
+        Assertions.assertEquals(0, account.getRate());
+    }
+
+    @Test
+    public void shouldHandleWithZeroCreditLimit() {
+        CreditAccount account = new CreditAccount(0, 0, 10);
+        Assertions.assertEquals(0, account.getBalance());
+        Assertions.assertEquals(0, account.getCreditLimit());
+        Assertions.assertEquals(10, account.getRate());
+    }
+
+    @Test
     public void shouldThrowForNegativeRate() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 new CreditAccount(0, 5000, -15));
     }
 
-    @Test
-    public void shouldThrowForZeroRate() {
-        Assertions.assertThrows(IllegalArgumentException.class, () ->
-                new CreditAccount(0, 5000, 0));
-    }
 
     @Test
     public void shouldThrowForNegativeCreditLimit() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 new CreditAccount(0, -5000, 15));
-    }
-
-    @Test
-    public void shouldThrowForZeroCreditLimit() {
-        Assertions.assertThrows(IllegalArgumentException.class, () ->
-                new CreditAccount(0, 0, 15));
     }
 
     @Test
