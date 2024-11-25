@@ -243,7 +243,7 @@ class BankTest {
     //перевод с нулевого баланса
     @Test
     public void falseFromCreditWithZeroInitialBalance() {
-        CreditAccount creditAccount = new CreditAccount(0, 100_000, 15);
+        CreditAccount creditAccount = new CreditAccount(0, 10, 15);
         CreditAccount user = new CreditAccount(450_000, 10_000, 10);
 
         assertFalse(bank.transfer(creditAccount, user, 100));
