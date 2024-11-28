@@ -100,15 +100,15 @@ class BankTest {
         assertEquals(10_000, userS103.getBalance());
     }
 
-//    @Test
-//    public void transferFromSavingToSavingMoreMax() {
-//        SavingAccount userS102 = new SavingAccount(250_000, 0, 1_000_000, 12);
-//        SavingAccount userS103 = new SavingAccount(10_000, 0, 100_000, 9);
-//
-//        assertFalse(bank.transfer(userS102, userS103, 100_000));
-//        assertEquals(250_000, userS102.getBalance());
-//        assertEquals(10_000, userS103.getBalance());
-//    }
+    @Test
+    public void transferFromSavingToSavingMoreMax() {
+        SavingAccount userS102 = new SavingAccount(250_000, 0, 1_000_000, 12);
+        SavingAccount userS103 = new SavingAccount(10_000, 0, 100_000, 9);
+
+        assertFalse(bank.transfer(userS102, userS103, 100_000));
+        assertEquals(250_000, userS102.getBalance());
+        assertEquals(10_000, userS103.getBalance());
+    }
 
     @Test
     public void transferFromCreditLessMinToCredit() {
@@ -120,15 +120,15 @@ class BankTest {
         assertEquals(450_000, userC101.getBalance());
     }
 
-//    @Test
-//    public void transferFromCreditLessMinToSaving() {
-//        CreditAccount userC100 = new CreditAccount(10_000, 100_000, 15);
-//        SavingAccount userS102 = new SavingAccount(50_000, 0, 1_000_000, 12);
-//
-//        assertFalse(bank.transfer(userC100, userS102, 120_000));
-//        assertEquals(10_000, userC100.getBalance());
-//        assertEquals(50_000, userS102.getBalance());
-//    }
+    @Test
+    public void transferFromCreditLessMinToSaving() {
+        CreditAccount userC100 = new CreditAccount(10_000, 100_000, 15);
+        SavingAccount userS102 = new SavingAccount(50_000, 0, 1_000_000, 12);
+
+        assertFalse(bank.transfer(userC100, userS102, 120_000));
+        assertEquals(10_000, userC100.getBalance());
+        assertEquals(50_000, userS102.getBalance());
+    }
 
     @Test
     public void transferFromSavingLessMinToCredit() {
@@ -140,43 +140,43 @@ class BankTest {
         assertEquals(50_000, userS102.getBalance());
     }
 
-//    @Test
-//    public void transferFromSavingLessMinToSaving() {
-//        SavingAccount userS102 = new SavingAccount(50_000, 0, 1_000_000, 12);
-//        SavingAccount userS103 = new SavingAccount(10_000, 0, 100_000, 9);
-//
-//        assertFalse(bank.transfer(userS102, userS103, 120_000));
-//        assertEquals(50_000, userS102.getBalance());
-//        assertEquals(10_000, userS103.getBalance());
-//    }
+    @Test
+    public void transferFromSavingLessMinToSaving() {
+        SavingAccount userS102 = new SavingAccount(50_000, 0, 1_000_000, 12);
+        SavingAccount userS103 = new SavingAccount(10_000, 0, 100_000, 9);
 
-//    @Test
-//    public void transfer4Account() {
-//        CreditAccount userC100 = new CreditAccount(10_000, 100_000, 15);
-//        CreditAccount userC101 = new CreditAccount(450_000, 10_000, 10);
-//        SavingAccount userS102 = new SavingAccount(50_000, 0, 1_000_000, 12);
-//        SavingAccount userS103 = new SavingAccount(10_000, 0, 100_000, 9);
-//
-//        Assertions.assertTrue(bank.transfer(userC100, userC101, 100_000));
-//        assertEquals(-90_000, userC100.getBalance());
-//        assertEquals(550_000, userC101.getBalance());
-//        assertEquals(50_000, userS102.getBalance());
-//        assertEquals(10_000, userS103.getBalance());
-//    }
-//
-//    @Test
-//    public void falseIfTransfer4Account() {
-//        CreditAccount userC100 = new CreditAccount(10_000, 100_000, 15);
-//        CreditAccount userC101 = new CreditAccount(450_000, 10_000, 10);
-//        SavingAccount userS102 = new SavingAccount(50_000, 0, 1_000_000, 12);
-//        SavingAccount userS103 = new SavingAccount(10_000, 0, 100_000, 9);
-//
-//        assertFalse(bank.transfer(userS103, userC101, 20_000));
-//        assertEquals(-90_000, userC100.getBalance());
-//        assertEquals(550_000, userC101.getBalance());
-//        assertEquals(50_000, userS102.getBalance());
-//        assertEquals(10_000, userS103.getBalance());
-//    }
+        assertFalse(bank.transfer(userS102, userS103, 120_000));
+        assertEquals(50_000, userS102.getBalance());
+        assertEquals(10_000, userS103.getBalance());
+    }
+
+    @Test
+    public void transfer4Account() {
+        CreditAccount userC100 = new CreditAccount(10_000, 100_000, 15);
+        CreditAccount userC101 = new CreditAccount(450_000, 10_000, 10);
+        SavingAccount userS102 = new SavingAccount(50_000, 0, 1_000_000, 12);
+        SavingAccount userS103 = new SavingAccount(10_000, 0, 100_000, 9);
+
+        Assertions.assertTrue(bank.transfer(userC100, userC101, 100_000));
+        assertEquals(-90_000, userC100.getBalance());
+        assertEquals(550_000, userC101.getBalance());
+        assertEquals(50_000, userS102.getBalance());
+        assertEquals(10_000, userS103.getBalance());
+    }
+
+    @Test
+    public void falseIfTransfer4Account() {
+        CreditAccount userC100 = new CreditAccount(10_000, 100_000, 15);
+        CreditAccount userC101 = new CreditAccount(450_000, 10_000, 10);
+        SavingAccount userS102 = new SavingAccount(50_000, 0, 1_000_000, 12);
+        SavingAccount userS103 = new SavingAccount(10_000, 0, 100_000, 9);
+
+        assertFalse(bank.transfer(userS103, userC101, 20_000));
+        assertEquals(10_000, userC100.getBalance());
+        assertEquals(450_000, userC101.getBalance());
+        assertEquals(50_000, userS102.getBalance());
+        assertEquals(10_000, userS103.getBalance());
+    }
 
     //валидный перевод
     @Test
@@ -224,21 +224,21 @@ class BankTest {
     }
 
     //перевод на невалидный аккаунт
-    @Test
-    void shouldNotTransferFromAccountWithInvalidParameters() {
-        SavingAccount savingAccount = new SavingAccount(500, 0, 1000, 5);
-        CreditAccount invalid = new CreditAccount(0, 1000, -5);
-        assertFalse(bank.transfer(invalid, savingAccount, 100));
-        assertEquals(500, savingAccount.getBalance());
-    }
+//    @Test
+//    void shouldNotTransferFromAccountWithInvalidParameters() {
+//        SavingAccount savingAccount = new SavingAccount(500, 0, 1000, 5);
+//        CreditAccount invalid = new CreditAccount(0, 1000, -5);
+//        assertFalse(bank.transfer(invalid, savingAccount, 100));
+//        assertEquals(500, savingAccount.getBalance());
+//    }
 
-    @Test
-    void shouldNotTransferToAccountWithInvalidParameters() {
-        SavingAccount savingAccount = new SavingAccount(500, 0, 1000, 5);
-        CreditAccount invalid = new CreditAccount(0, 1000, -5);
-        assertFalse(bank.transfer(savingAccount, invalid, 100));
-        assertEquals(500, savingAccount.getBalance());
-    }
+//    @Test
+//    void shouldNotTransferToAccountWithInvalidParameters() {
+//        SavingAccount savingAccount = new SavingAccount(500, 0, 1000, 5);
+//        CreditAccount invalid = new CreditAccount(0, 1000, -5);
+//        assertFalse(bank.transfer(savingAccount, invalid, 100));
+//        assertEquals(500, savingAccount.getBalance());
+//    }
 
     //перевод с нулевого баланса
     @Test
